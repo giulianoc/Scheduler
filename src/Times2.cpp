@@ -1478,7 +1478,11 @@ void Times2::updateNextCalendarExpirationDateTime(bool &lastTimeout)
 				&ulLocalMinutes, &ulLocalSeconds, &ulMilliSeconds
 			) != 7)
 		{
-			throw runtime_error(string("sscanf failed"));
+			throw runtime_error(std::format(
+				"sscanf failed"
+				", _pCurrentExpirationDateTime: {}",
+				_pCurrentExpirationDateTime
+			));
 		}
 
 		tmNextExpirationDateTime.tm_year = ulLocalYear;
