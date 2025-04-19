@@ -40,6 +40,8 @@ include_directories("${ERROR_INCLUDE_DIR}")
 include_directories("${PTHREAD_INCLUDE_DIR}")
 include_directories("${DATETIME_INCLUDE_DIR}")
 
+#include_directories("${PROJECT_SOURCE_DIR}/../deploy/spdlog/include")
+
 add_library (Scheduler SHARED ${SOURCES} ${HEADERS})
 
 install (TARGETS Scheduler DESTINATION lib)
