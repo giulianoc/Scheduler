@@ -40,9 +40,19 @@ include_directories("${ERROR_INCLUDE_DIR}")
 include_directories("${PTHREAD_INCLUDE_DIR}")
 include_directories("${DATETIME_INCLUDE_DIR}")
 
-#include_directories("${PROJECT_SOURCE_DIR}/../deploy/spdlog/include")
+if(APPLE)
+	link_directories("${ERROR_LIB_DIR}")
+	link_directories("${PTHREAD_LIB_DIR}")
+	link_directories("${DATETIME_LIB_DIR}")
+endif()
 
 add_library (Scheduler SHARED ${SOURCES} ${HEADERS})
+
+if(APPLE)
+	target_link_libraries(Scheduler PRIVATE Error)
+	target_link_libraries(Scheduler PRIVATE PThread)
+	target_link_libraries(Scheduler PRIVATE Datetime)
+endif()
 
 install (TARGETS Scheduler DESTINATION lib)
 install (FILES ${HEADERS} DESTINATION include)
