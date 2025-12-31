@@ -26,6 +26,7 @@
 
 #include "Scheduler2.h"
 
+using namespace std;
 
 
 Scheduler2:: Scheduler2 (unsigned long ulThreadSleepInMilliSecs)

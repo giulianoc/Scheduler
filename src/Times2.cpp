@@ -33,7 +33,7 @@
 #include "Datetime.h"
 #include <iostream>
 
-// #include "spdlog/spdlog.h"
+using namespace std;
 
 Times2::Times2(unsigned long ulPeriodInMilliSeconds, string className)
 {

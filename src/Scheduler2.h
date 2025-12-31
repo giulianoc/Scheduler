@@ -68,8 +68,6 @@
     l'uso di questa libreria.
 */
 
-using namespace std;
-
 class Scheduler2
 {
 private:
@@ -83,14 +81,14 @@ private:
     unsigned long		_ulThreadSleepInMilliSecs;
     SchedulerStatus_t		_schedulerStatus;
 
-    long getTimesPointerIndex (shared_ptr<Times2> pTimes);
+    long getTimesPointerIndex (std::shared_ptr<Times2> pTimes);
 
 
 protected:
 
     // mutex for the private and protected variables
-    recursive_mutex			_mtSchedulerMutex;
-    vector<shared_ptr<Times2>>           _timesList;
+    std::recursive_mutex			_mtSchedulerMutex;
+    std::vector<std::shared_ptr<Times2>>           _timesList;
 
 
     /**
@@ -153,13 +151,13 @@ public:
     /**
         Viene dato allo scheduler un ulteriore Times da gestire.
     */
-    Error activeTimes (shared_ptr<Times2> pTimes);
+    Error activeTimes (std::shared_ptr<Times2> pTimes);
 
     /**
         Il metodo permette di disattivare un Times attivato dal
         metodo activeTimes.
     */
-    Error deactiveTimes (shared_ptr<Times2> pTimes);
+    Error deactiveTimes (std::shared_ptr<Times2> pTimes);
 
     /**
         Il metodo permette di disattivare un Times attivato dal
@@ -179,7 +177,7 @@ public:
         Il metodo ritorna il puntatore al Times che correntemente 
         occupa la posizione indicata dal parametro lTimesIndex.
     */
-    shared_ptr<Times2> getTimes (unsigned long ulTimesIndex);
+    std::shared_ptr<Times2> getTimes (unsigned long ulTimesIndex);
 
     /**
         Ritorna lo stato dello scheduler.

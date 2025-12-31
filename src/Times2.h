@@ -22,13 +22,10 @@
 */
 
 
-#ifndef Times2_h
-#define Times2_h
+#pragma once
 
 #include <mutex>
 #include "SchedulerErrors.h"
-
-using namespace std;
 
 #define SCH_MAXDATELENGTH				(24 + 1)
 
@@ -111,11 +108,11 @@ private:
     void updateNextCalendarExpirationDateTime (bool &lastTimeout);
 
 protected:
-    // mutex for the next private and protected variables
-    mutex				_mtTimesMutex;
+    // std::mutex for the next private and protected variables
+    std::mutex				_mtTimesMutex;
     TimesStatus_t			_schTimesStatus;
     TimesType_t				_ttTimesType;
-    string				_className;
+    std::string				_className;
 
     unsigned long			_ulPeriodInMilliSeconds;
     char					_pCalendarSchedule [SCH_MAXSCHEDULELENGTH];
@@ -133,7 +130,7 @@ public:
         Inizializza l'oggetto specificando il periodo tra due timeout.
         Il parametro lPeriod e' espresso in secondi.
     */
-    Times2 (unsigned long ulPeriodInMilliSeconds = 0, string pClassName = "");
+    Times2 (unsigned long ulPeriodInMilliSeconds = 0, std::string pClassName = "");
 
     /**
         Viene inizializzato un times 'calendario'.
@@ -184,7 +181,7 @@ public:
             In questo caso si verifica un timeout l'1 ed il 15
             di ogni mese e ogni lunedi' dell'anno 2000.
     */
-    Times2 (string schedule, string className = "");
+    Times2 (std::string schedule, std::string className = "");
 
     /**
         Distruttore
@@ -257,7 +254,7 @@ public:
         threads oltre lo scheduler
         e' bene accedere alla variabile _schTimesStatus
         all'interno di una 'regione critica' tramite
-        il mutex _mtTimesMutex:
+        il std::mutex _mtTimesMutex:
             Times:: TimesStatus_t		schTimesStatus;
             _mtTimesMutex. lock ();
             schTimesStatus		= _schTimesStatus;
@@ -283,7 +280,7 @@ public:
     /**
         Ritorna il nome della classe dell'oggetto di tipo Times.
     */
-    string getClassName ();
+    std::string getClassName ();
 
     /**
         Ritorna una copia della variabile _pNextExpirationDateTime.
@@ -311,7 +308,7 @@ public:
         un numero di secondi negativo.
         La data indicante il risultato dell'operazione viene
         inserita nel parametro di output pDestDateTime.
-        Il formato delle stringhe rappresentanti le date deve essere:
+        Il formato delle std::stringhe rappresentanti le date deve essere:
         yyyy-mm-dd hh:mi:ss.
     */
     static Error addMilliSecondsToDateTime (
@@ -320,5 +317,3 @@ public:
         unsigned long ulMilliSeconds);
 
 };
-
-#endif
